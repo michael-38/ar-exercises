@@ -26,8 +26,6 @@ Store.create(
 )
 
 
+puts Store.count
 
-puts Stores.count
 
-
-# Your code goes below here ...
