@@ -11,11 +11,23 @@ class Store < ActiveRecord::Base
 
     validate :carry_mens_or_womens
 
+    before_destroy :check_if_empty
+
     private
     def carry_mens_or_womens
         if mens_apparel == false && womens_apparel == false
             errors.add(:mens_apparel, "store must carry either men's or women's apparel")
             errors.add(:womens_apparel, "store must carry either men's or women's apparel")
+        end
+    end
+
+    def check_if_empty
+        if self.employees.size > 0
+            puts "Could not destroy store :)"
+            throw :abort
+        else
+            puts "Store destroyed"
+            return true
         end
     end
 
